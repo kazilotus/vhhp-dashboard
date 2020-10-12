@@ -7,7 +7,10 @@ API endpoints
 ```
 POST => /api/v1/admin/conferenceRoom
 body  => {
+    {
     "roomName": "test",
-    "currentStatus": "Stream Youtube"
+    "currentStatus": "Stream Youtube 1",
+    "link":"https://www.youtube.com/watch?v=l3qUvdy1Dh8" // If any
+}
 }
 ```
