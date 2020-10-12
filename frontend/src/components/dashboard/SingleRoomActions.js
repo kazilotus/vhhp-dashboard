@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
-import { Row, Col, Empty, Button } from 'antd'
+import { Row, Col, Empty, Typography, Radio } from 'antd'
+
+const { Title } = Typography
 
 export class SingleRoomActions extends Component {
+  state = {
+    size: 'Youtube Stream',
+  }
+
+  handleSizeChange = (e) => {
+    this.setState({ size: e.target.value })
+  }
   render() {
+    const { size } = this.state
     return (
       <>
         {!this.props.roomSelected ? (
@@ -13,26 +23,20 @@ export class SingleRoomActions extends Component {
           </Row>
         ) : (
           <>
-            <Row style={{ marginTop: '2rem', textAlign: 'center' }}>
-              <Col span={8}>
-                <Button type="primary">Pre Event</Button>
-              </Col>
-              <Col span={8}>
-                <Button type="primary">Youtube Video`</Button>
-              </Col>
-              <Col span={8}>
-                <Button type="primary">Youtube Stream</Button>
-              </Col>
-            </Row>
-            <Row style={{ marginTop: '1rem', textAlign: 'center' }}>
-              <Col span={8}>
-                <Button type="primary">Image</Button>
-              </Col>
-              <Col span={8}>
-                <Button type="primary">Watch party</Button>
-              </Col>
-              <Col span={8}>
-                <Button type="primary">Text</Button>
+            <Row style={{ marginTop: '2rem' }}>
+              <Col span={24}>
+                <Title level={3}>Please choose an action</Title>
+                <Radio.Group value={size} onChange={this.handleSizeChange}>
+                  <Radio.Button value="Pre Event">Pre Event</Radio.Button>
+                  <Radio.Button value="Youtube Video">
+                    Youtube Video
+                  </Radio.Button>
+                  <Radio.Button value="Youtube Stream">
+                    Youtube Stream
+                  </Radio.Button>
+                  <Radio.Button value="Image">Image</Radio.Button>
+                  <Radio.Button value="Watch party">Watch party</Radio.Button>
+                </Radio.Group>
               </Col>
             </Row>
           </>
