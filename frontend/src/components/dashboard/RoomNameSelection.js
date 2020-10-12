@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // importing json file to show in data <select>
-import * as roomName from './roomName.json'
+import * as roomNames from './roomNames.json'
 
 import { Typography, Select } from 'antd'
 
@@ -11,14 +11,16 @@ const { Option } = Select
 export class RoomNameSelection extends Component {
   constructor(props) {
     super(props)
-    this.state = { conferenceRoomNames: roomName.conferenceRoomNames }
+    this.state = {
+      conferenceRoomNames: roomNames.conferenceRoomNames,
+    }
     this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount() {
     // console.log(this.state.conferenceRoomNames)
   }
   handleChange(value) {
-    console.log(`${value}`)
+    this.props.handleRoomNameSelection(value)
   }
   render() {
     return (
