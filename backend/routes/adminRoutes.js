@@ -6,5 +6,6 @@ const router = express.Router()
 // => /api/v1/admin
 
 router.route('/conferenceRoom').post(adminControllers.setRoomStatus)
+router.route('/conferenceRoom/:name').get(adminControllers.getARoomStatus)
 
 module.exports = router

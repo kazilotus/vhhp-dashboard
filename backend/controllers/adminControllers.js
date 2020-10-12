@@ -28,3 +28,28 @@ exports.setRoomStatus = async (req, res) => {
     })
   }
 }
+
+exports.getARoomStatus = async (req, res) => {
+  try {
+    const room = await ConferenceRoom.findOne({ roomName: req.params.name })
+
+    if (!room) {
+      res.status(404).json({
+        status: 'failed',
+        message: 'No room found',
+      })
+    } else {
+      res.status(201).json({
+        status: 'success',
+        data: {
+          room,
+        },
+      })
+    }
+  } catch (err) {
+    res.status(400).json({
+      status: 'failed',
+      message: err.message,
+    })
+  }
+}
