@@ -13,18 +13,25 @@ export class Dashboard extends Component {
     this.handleRoomNameSelection = this.handleRoomNameSelection.bind(this)
     this.handleRoomStatusUpdate = this.handleRoomStatusUpdate.bind(this)
   }
+  
   componentDidMount() {
     // console.log(this.roomSelected)
     // console.log(this.state)
   }
+
   handleRoomNameSelection(room) {
     this.setState({ ...this.state, roomSelected: room })
   }
+
   handleRoomStatusUpdate(roomStatus) {
     this.setState({ ...this.state, roomStatus: roomStatus })
   }
 
   render() {
+
+    // require('../../index.css');
+    // require('antd/dist/antd.css');
+
     return (
       <LayoutOfDashboard>
         <RoomNameSelection

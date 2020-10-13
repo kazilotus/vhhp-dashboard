@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 
 const conferenceRoomSchema = new mongoose.Schema({
-  roomName: String,
-  currentStatus: String,
-  link: String,
-  textInput: String,
+  name: String,
+  event: String,
+  data: String,
 })
 
 const ConferenceRoom = mongoose.model('ConferenceRoom', conferenceRoomSchema)
