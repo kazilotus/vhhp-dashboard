@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 // importing json file to show in data <select>
 import * as roomNames from './roomNames.json'
@@ -20,7 +21,18 @@ export class RoomNameSelection extends Component {
     // console.log(this.state.conferenceRoomNames)
   }
   handleChange(value) {
-    this.props.handleRoomNameSelection(value)
+    axios.get(`/api/v1/admin/conferenceRoom/${value}`).then((res) => {
+      this.props.handleRoomNameSelection(value)
+      // console.log(res)
+      if (res.status === 204) {
+        console.log('not found')
+        this.props.handleRoomStatusUpdate(null)
+        return
+      }
+      // console.log(res.data)
+      // console.log(res.data.data.room)
+      this.props.handleRoomStatusUpdate(res.data.data.room.currentStatus)
+    })
   }
   render() {
     return (

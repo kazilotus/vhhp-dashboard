@@ -1,9 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 
-const adminRouter = require('./routes/adminRoutes');
+const adminRouter = require('./routes/adminRoutes')
 
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -12,7 +14,6 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/admin', adminRouter)
 
-module.exports = app;
-
+module.exports = app

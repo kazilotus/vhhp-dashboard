@@ -34,7 +34,7 @@ exports.getARoomStatus = async (req, res) => {
     const room = await ConferenceRoom.findOne({ roomName: req.params.name })
 
     if (!room) {
-      res.status(404).json({
+      res.status(204).json({
         status: 'failed',
         message: 'No room found',
       })

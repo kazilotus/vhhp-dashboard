@@ -1,18 +1,33 @@
 import React, { Component } from 'react'
-import { Row, Col, Empty, Typography, Radio } from 'antd'
+import axios from 'axios'
+import { Button, Row, Col, Empty, Typography, Radio, Divider } from 'antd'
 
-const { Title } = Typography
+const { Title, Paragraph } = Typography
 
 export class SingleRoomActions extends Component {
   state = {
-    size: 'Youtube Stream',
+    roomStatus: this.props.roomStatus,
+  }
+  componentDidMount() {
+    // do stuff
+    this.setState({ roomStatus: this.props.roomStatus })
+  }
+  handleRoomStatusChange = (e) => {
+    this.setState({ roomStatus: e.target.value })
+    axios
+      .post(`/api/v1/admin/conferenceRoom/`, {
+        roomName: this.props.roomSelected,
+        currentStatus: e.target.value,
+      })
+      .then((res) => {
+        // console.log(res)
+        // console.log(res.data)
+        this.props.handleRoomStatusUpdate(this.state.roomStatus)
+      })
   }
 
-  handleSizeChange = (e) => {
-    this.setState({ size: e.target.value })
-  }
   render() {
-    const { size } = this.state
+    const { roomStatus } = this.state
     return (
       <>
         {!this.props.roomSelected ? (
@@ -26,7 +41,10 @@ export class SingleRoomActions extends Component {
             <Row style={{ marginTop: '2rem' }}>
               <Col span={24}>
                 <Title level={3}>Please choose an action</Title>
-                <Radio.Group value={size} onChange={this.handleSizeChange}>
+                <Radio.Group
+                  value={roomStatus}
+                  onChange={this.handleRoomStatusChange}
+                >
                   <Radio.Button value="Pre Event">Pre Event</Radio.Button>
                   <Radio.Button value="Youtube Video">
                     Youtube Video
@@ -34,9 +52,20 @@ export class SingleRoomActions extends Component {
                   <Radio.Button value="Youtube Stream">
                     Youtube Stream
                   </Radio.Button>
+                  <Radio.Button value="Text">Text</Radio.Button>
                   <Radio.Button value="Image">Image</Radio.Button>
                   <Radio.Button value="Watch party">Watch party</Radio.Button>
                 </Radio.Group>
+
+                <Divider />
+                <Paragraph>
+                  Room Selected:{' '}
+                  <Paragraph strong>{this.props.roomSelected}</Paragraph>
+                </Paragraph>
+                <Paragraph>
+                  Room status:{' '}
+                  <Paragraph strong>{this.props.roomStatus}</Paragraph>
+                </Paragraph>
               </Col>
             </Row>
           </>

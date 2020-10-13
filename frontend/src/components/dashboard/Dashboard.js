@@ -8,14 +8,20 @@ export class Dashboard extends Component {
     super(props)
     this.state = {
       roomSelected: null,
+      roomStatus: null,
     }
     this.handleRoomNameSelection = this.handleRoomNameSelection.bind(this)
+    this.handleRoomStatusUpdate = this.handleRoomStatusUpdate.bind(this)
   }
   componentDidMount() {
     // console.log(this.roomSelected)
+    // console.log(this.state)
   }
   handleRoomNameSelection(room) {
     this.setState({ ...this.state, roomSelected: room })
+  }
+  handleRoomStatusUpdate(roomStatus) {
+    this.setState({ ...this.state, roomStatus: roomStatus })
   }
 
   render() {
@@ -23,8 +29,13 @@ export class Dashboard extends Component {
       <LayoutOfDashboard>
         <RoomNameSelection
           handleRoomNameSelection={this.handleRoomNameSelection}
+          handleRoomStatusUpdate={this.handleRoomStatusUpdate}
         />
-        <SingleRoomActions roomSelected={this.state.roomSelected} />
+        <SingleRoomActions
+          roomSelected={this.state.roomSelected}
+          roomStatus={this.state.roomStatus}
+          handleRoomStatusUpdate={this.handleRoomStatusUpdate}
+        />
       </LayoutOfDashboard>
     )
   }
