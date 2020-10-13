@@ -10,7 +10,8 @@ body  =>
     {
     "roomName": "test",
     "currentStatus": "Stream Youtube 1",
-    "link":"https://www.youtube.com/watch?v=l3qUvdy1Dh8" // If any
+    "link":"https://www.youtube.com/watch?v=l3qUvdy1Dh8", //if any
+    "textInput":"Nice conference" //if any
 }
 ```
 
@@ -25,7 +26,7 @@ res e.g. => {
             "roomName": "test",
             "currentStatus": "Stream Youtube ",
             "__v": 0,
-            "link": "https://www.youtube.com/watch?v=l3qUvdy1Dh8" 
+            "link": "https://www.youtube.com/watch?v=l3qUvdy1Dh8" // if any
         }
     }
 }

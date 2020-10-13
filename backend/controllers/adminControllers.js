@@ -2,7 +2,7 @@ const ConferenceRoom = require('../models/ConferenceRoom')
 
 exports.setRoomStatus = async (req, res) => {
   try {
-    const { roomName, currentStatus, link } = req.body
+    const { roomName } = req.body 
 
     // Checking if the room is previously exists
     const room = await ConferenceRoom.findOne({ roomName })
@@ -18,7 +18,7 @@ exports.setRoomStatus = async (req, res) => {
     res.status(201).json({
       status: 'success',
       data: {
-        // roomStatus,
+        roomStatus,
       },
     })
   } catch (err) {
@@ -29,6 +29,7 @@ exports.setRoomStatus = async (req, res) => {
   }
 }
 
+// Get all info of a ROOM by its name
 exports.getARoomStatus = async (req, res) => {
   try {
     const room = await ConferenceRoom.findOne({ roomName: req.params.name })
