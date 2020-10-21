@@ -1,5 +1,11 @@
+const Twilio = require('twilio')
+const chance = new require('chance')()
+
 const ConferenceRoom = require('../models/ConferenceRoom')
 const EventLog = require('../models/EventLog')
+
+const AccessToken = Twilio.jwt.AccessToken
+const ChatGrant = AccessToken.ChatGrant
 
 exports.setRoomsStatus = async (req, res) => {
   try {
@@ -117,4 +123,23 @@ exports.getAllLogs = async (req, res) => {
       message: err.message,
     })
   }
+}
+
+// Get all info of all ROOMS
+exports.getChatToken = async (req, res) => {
+  const token = new AccessToken(
+    process.env.TWILIO_ACCOUNT_SID,
+    process.env.TWILIO_API_KEY,
+    process.env.TWILIO_API_SECRET,
+  )
+
+  token.identity = chance.name()
+  token.addGrant(new ChatGrant({
+    serviceSid: process.env.TWILIO_CHAT_SERVICE_SID
+  }))
+
+  res.send({
+    identity: token.identity,
+    jwt: token.toJwt()
+  })
 }

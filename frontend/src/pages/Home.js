@@ -44,6 +44,7 @@ export default class Home extends Component {
         logs: [],
         prompt: false,
         type: null,
+        opacity: 0
     }
 
     componentDidMount() {
@@ -52,6 +53,11 @@ export default class Home extends Component {
         setInterval(() => {
             this.setTime()
         }, 1000)
+        window.addEventListener('load', () => {
+            this.setState({
+                opacity: 1
+            })
+        });
     }
 
     setTime = () => {
@@ -133,7 +139,7 @@ export default class Home extends Component {
                 
                 <Prompt prompt={this.state.prompt} submit={this.submit} hide={() => {this.setState({prompt: false})}}/>
 
-                <div className="f fc" style={{ padding: '0px 25px 25px 25px', height: '100%' }}>
+                <div className="f fc" style={{ padding: '0px 25px 25px 25px', height: '100%', opacity: this.state.opacity }}>
                     <div className="b f btn rel" style={{ height: 125,
                     
                         display: 'grid',

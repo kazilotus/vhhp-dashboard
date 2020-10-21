@@ -11,4 +11,6 @@ router.route('/conferenceRoom/:name').get(adminControllers.getARoomStatus)
 
 router.route('/eventLog').get(adminControllers.getAllLogs)
 
+router.route('/chatToken').get(adminControllers.getChatToken)
+
 module.exports = router
