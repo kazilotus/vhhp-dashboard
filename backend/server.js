@@ -5,6 +5,8 @@ var cors = require('cors')
 dotenv.config({ path: './.env' })
 const app = require('./app')
 
+app.use(cors())
+
 const DB = process.env.DB
 const port = process.env.PORT || 5000
 
@@ -16,7 +18,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.use(cors())
+    
     app.listen(port, () => {
       console.log('DB connection successful! at => ' + DB)
       console.log(`App running on port ${port}...`)

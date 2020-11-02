@@ -5,12 +5,14 @@ const router = express.Router()
 
 // => /api/v1/admin
 
-router.route('/conferenceRoom').post(adminControllers.setRoomsStatus)
-router.route('/conferenceRoom').get(adminControllers.getAllRooms)
-router.route('/conferenceRoom/:name').get(adminControllers.getARoomStatus)
+router.route('/admin/conferenceRoom').post(adminControllers.setRoomsStatus)
+router.route('/admin/conferenceRoom').get(adminControllers.getAllRooms)
+router.route('/admin/conferenceRoom/:name').get(adminControllers.getARoomStatus)
+router.route('/admin/eventLog').get(adminControllers.getAllLogs)
 
-router.route('/eventLog').get(adminControllers.getAllLogs)
-
-router.route('/chatToken').get(adminControllers.getChatToken)
+router.route('/chat/token').post(adminControllers.getChatToken)
+router.route('/pusher/token/:id/:context').post(adminControllers.getPusherToken)
+router.route('/pusher/token/:id/:context/:prefixx').post(adminControllers.getPusherToken)
+router.route('/pusher/token/:id/:context/:prefixx/:name').post(adminControllers.getPusherToken)
 
 module.exports = router

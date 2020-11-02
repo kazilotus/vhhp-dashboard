@@ -7,6 +7,9 @@ const EventLog = require('../models/EventLog')
 const AccessToken = Twilio.jwt.AccessToken
 const ChatGrant = AccessToken.ChatGrant
 
+const Pusher = require('pusher');
+const axios = require('axios');
+
 exports.setRoomsStatus = async (req, res) => {
   try {
 
@@ -132,8 +135,13 @@ exports.getChatToken = async (req, res) => {
     process.env.TWILIO_API_KEY,
     process.env.TWILIO_API_SECRET,
   )
+  
+  const vhhpUser = req.body
+  
+  console.log(vhhpUser)
 
-  token.identity = chance.name()
+  token.identity = vhhpUser.email || chance.name()
+  
   token.addGrant(new ChatGrant({
     serviceSid: process.env.TWILIO_CHAT_SERVICE_SID
   }))
@@ -142,4 +150,62 @@ exports.getChatToken = async (req, res) => {
     identity: token.identity,
     jwt: token.toJwt()
   })
+}
+
+exports.getPusherToken = async (req, res) => {
+  const pusher = new Pusher({
+    appId: process.env.PUSHER_APP_ID,
+    key: process.env.PUSHER_KEY,  
+    secret: process.env.PUSHER_SECRET,
+    cluster: process.env.PUSHER_CLUSTER,
+    useTLS: true
+  });
+  
+  const socketId = req.body.socket_id;
+  const channel = req.body.channel_name;
+
+  const user_id = req.params.id;
+  const user_context = req.params.context;
+  const context_prefix = req.params.prefixx || null;
+  const name = req.params.name || '';
+  
+  let presenceData = {}
+  
+  // if (context_prefix == "v3weasffrwderwer_") {
+    
+    presenceData = {
+      user_id: user_id,
+      user_info: {
+        id: user_id,
+        name: decodeURI(name),
+        context: user_context
+      }
+    };
+  
+  // } else {
+    
+  //   let url = 'https://b.virtualhabitathouseparty.org/api/users/' + user_id
+  
+  //   if (context_prefix == 'prodsldkghd_' || context_prefix == null) {
+  //     url = 'https://www.virtualhabitathouseparty.org/api/users/' + user_id
+  //   }
+    
+  //   const response = await axios.get(url)
+    
+  //   const user = response && response.data || null;
+    
+  //   console.log(user)
+    
+  //   presenceData = { 
+  //     user_id: user_id,
+  //     user_info: {
+  //       ...user,
+  //       context: user_context
+  //     }
+  //   };
+    
+  // }
+
+  const auth = pusher.authenticate(socketId, channel, presenceData);
+  res.send(auth);
 }

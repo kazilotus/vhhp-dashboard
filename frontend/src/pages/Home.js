@@ -76,7 +76,7 @@ export default class Home extends Component {
             if (res.data?.status == 'success') {
                 const obj = res.data.data
                 const arr = Object.keys(obj).map((key) => obj[key])
-                console.log(arr)
+                //console.log(arr)
                 this.setState({
                     logs: arr
                 })
@@ -86,7 +86,7 @@ export default class Home extends Component {
     }
 
     act = async (type) => {
-        console.log(type)
+        //console.log(type)
 
         if (this.state.selected.length) {
 
@@ -117,7 +117,7 @@ export default class Home extends Component {
             }
         }))
         .then((res) => {
-          console.log(res)
+          //console.log(res)
           // console.log(res.data)
         //   this.props.handleRoomStatusUpdate(this.state.currentStatus)
         }).finally(() => {
@@ -238,7 +238,7 @@ export default class Home extends Component {
                                     <div id="logs">
                                         { this.state.logs.length && this.state.logs.reverse().map(log => {
 
-                                            console.log(log)
+                                            //console.log(log)
 
 
                                             const date = (new Date(log.time).toLocaleTimeString()).slice(0, 8)
